@@ -1,9 +1,31 @@
 *{
     display:block;
+    box-sizing:border-box;
+}
+body{
+    background-image: url("../images/skyfight.png");
+    background-size:cover;
 }
 .header{
     float:right;
 }
 title{
     display:none;
+}
+.yoda, .r2d2, .vader, .trooper{
+    border: 3px solid green;
+    padding:10px;
+    margin:5px;
+    text-align: center;
+    display:inline-block;
+    background-color:white;
+}
+ #vaderimg, #trooperimg{
+    background-color:green;
+    padding:5px;
+}
+ .section{ 
+    font-weight:bold;
+    font-size:25px;
+    
 }
