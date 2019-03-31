@@ -180,5 +180,38 @@ $("#attack").on("click", function(){
     }
 })
 
+// changing the mouse pointer when it hovers over the restart button//
+$("#restart").hover(function(){
+    $(this).css("cursor", "grab");
+    }, function(){
+    $(this).css("cursor", "pointer");
+  });
+
+
+// coding for the restart button //
+$("#restart").on("click",function(){
+    if (gameEnd == true){
+        gameEnd = false;
+        gameStart = false;
+        attacker = false;
+        defender = false;
+        $(".choosechar").append(yoda, vader, trooper, r2D2);
+        defenderStats = {};
+        attackerStats = {};
+        yodaStats.hp = 100;
+        yodaStats.attackValue = yodaStats.baseAttack;
+        vaderStats.hp = 100;
+        vaderStats.attackValue = vaderStats.baseAttack;
+        trooperStats.hp = 100;
+        trooperStats.attackValue = trooperStats.baseAttack;
+        r2D2Stats.hp = 100;
+        r2D2Stats.attackValue = r2D2Stats.baseAttack;
+        yodaStats.hpUpdate();
+        vaderStats.hpUpdate();
+        trooperStats.hpUpdate();
+        r2D2Stats.hpUpdate();
+
+    }
+})
 
 
