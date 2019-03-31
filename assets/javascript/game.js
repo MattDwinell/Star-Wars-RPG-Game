@@ -164,7 +164,7 @@ $("#attack").on("click", function(){
             if ($(".enemies > div").length <=0){
                 gameEnd = true;
                 $("#fight-message").text("You win! Play again?");
-                $("#restart").css("display","inline-block");
+                $("#restart").css("display","block");
             }
         }else {
             attackerStats.hp -= defenderStats.baseAttack;
@@ -173,7 +173,7 @@ $("#attack").on("click", function(){
             if(attackerStats.hp <= 0){
                 $("#fight-message").text(defenderStats.name + " defeated you. try again?")
                 gameEnd = true;
-                $("#restart").css("display","inline-block");
+                $("#restart").css("display","block");
 
             }
         }
@@ -200,16 +200,18 @@ $("#restart").on("click",function(){
         attackerStats = {};
         yodaStats.hp = 100;
         yodaStats.attackValue = yodaStats.baseAttack;
-        vaderStats.hp = 100;
+        vaderStats.hp = 120;
         vaderStats.attackValue = vaderStats.baseAttack;
-        trooperStats.hp = 100;
+        trooperStats.hp = 80;
         trooperStats.attackValue = trooperStats.baseAttack;
-        r2D2Stats.hp = 100;
+        r2D2Stats.hp = 200;
         r2D2Stats.attackValue = r2D2Stats.baseAttack;
         yodaStats.hpUpdate();
         vaderStats.hpUpdate();
         trooperStats.hpUpdate();
         r2D2Stats.hpUpdate();
+        $("#restart").css("display","none");
+        $("#fight-message").text("press attack to fight!")
 
     }
 })
