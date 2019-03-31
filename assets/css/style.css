@@ -19,6 +19,7 @@ title{
     text-align: center;
     display:inline-block;
     background-color:white;
+    margin: 0 auto;
 }
  #vaderimg, #trooperimg{
     background-color:green;
@@ -28,4 +29,25 @@ title{
     font-weight:bold;
     font-size:25px;
     
+}
+.vanquished{
+display:none;
+}
+#attack{
+    margin: 0 auto;
+    padding: 5px 5px 15px 5px;
+    width: 100px;
+    height:40px;
+    font-size: 30px;
+    border:3px solid black;
+    background-color:white;
+    color: darkred;
+}
+.defender{
+    margin:0 auto;
+  
+}
+.attacker{
+    margin:0 auto;
+    border: 3px solid green;
 }
