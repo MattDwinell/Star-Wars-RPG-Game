@@ -10,10 +10,18 @@ var defender = false;
 var attacker = false;
 var defenderStats ={};
 var attackerStats = {};
+var yodaHp = $("#yodahp");
+var vaderHp = $("#vaderhp");
+var trooperHp = $("#trooperhp");
+var r2D2Hp = $("#r2d2hp");
 var yodaStats = {
-    hp:120,
+    name: "Yoda",
+    hp:100,
+    hpUpdate: function(){
+        yodaHp.text(yodaStats.hp);
+    },
     baseAttack:10,
-    attack:10,
+    attackValue:10,
     vanquish: function(){
         $(".vanquished").append(yoda);
         defender = false; },
@@ -31,9 +39,13 @@ var yodaStats = {
         $(".enemies").append(r2D2);}
 }
 var vaderStats = {
-    hp:150,
-    baseAttack:15,
-    attack:15,
+    name: "Darth-Vader",
+    hp:120,
+    hpUpdate: function(){
+        vaderHp.text(vaderStats.hp);
+    },
+    baseAttack:25,
+    attackValue:25,
     vanquish: function(){
         $(".vanquished").append(vader);
         defender = false; },
@@ -51,9 +63,13 @@ var vaderStats = {
         $(".enemies").append(r2D2);}
 }
 var trooperStats = {
-    hp:100,
-    baseAttack:8,
-    attack:8,
+    name: "Storm Trooper",
+    hp:80,
+    hpUpdate: function(){
+        trooperHp.text(trooperStats.hp);
+    },
+    baseAttack:10,
+    attackValue:10,
     vanquish: function(){
         $(".vanquished").append(trooper);
         defender = false; },
@@ -71,9 +87,13 @@ var trooperStats = {
         $(".enemies").append(r2D2);}
 }
 var r2D2Stats = {
-    hp:120,
-    baseAttack:10,
-    attack:10,
+    name: "R2D2",
+    hp:200,
+    hpUpdate: function(){
+        r2D2Hp.text(r2D2Stats.hp);
+    },
+    baseAttack:3,
+    attackValue:3,
     vanquish: function(){
         $(".vanquished").append(r2D2);
         defender = false; },
@@ -122,11 +142,41 @@ r2D2.on("click",function(){
         r2D2Stats.defend();
     }
 })
-
-// attack button code//
-$("attack").on("click", function(){
+// changing the mouse pointer when it hovers over the attack button//
+$("#attack").hover(function(){
+    $(this).css("cursor", "crosshair");
+    }, function(){
+    $(this).css("cursor", "pointer");
+  });
+// attack button code. can describe everything in terms of attacker stats & defender stats. //
+$("#attack").on("click", function(){
+    console.log(gameStart, gameEnd, attacker, defender);
     if (gameStart == true && gameEnd == false && attacker == true && defender == true){
+        console.log(defenderStats);
+        defenderStats.hp -= attackerStats.attackValue;
+        attackerStats.attackValue += attackerStats.baseAttack;
+        defenderStats.hpUpdate();
         
+        if (defenderStats.hp <= 0){
+            defenderStats.vanquish();
+            defender = false;
+            $("#fight-message").text("You defeated " + defenderStats.name + "!");
+            if ($(".enemies > div").length <=0){
+                gameEnd = true;
+                $("#fight-message").text("You win! Play again?");
+                $("#restart").css("display","inline-block");
+            }
+        }else {
+            attackerStats.hp -= defenderStats.baseAttack;
+            attackerStats.hpUpdate();
+            $("#fight-message").text("You dealt " + (attackerStats.attackValue - attackerStats.baseAttack) + " damage to " + defenderStats.name + " and They dealt " + defenderStats.baseAttack + " damage to you." );
+            if(attackerStats.hp <= 0){
+                $("#fight-message").text(defenderStats.name + " defeated you. try again?")
+                gameEnd = true;
+                $("#restart").css("display","inline-block");
+
+            }
+        }
     }
 })
 
