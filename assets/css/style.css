@@ -10,7 +10,7 @@ body{
     background-size:cover;
 }
 html{
-    padding-left:10%;
+    padding-left:6%;
 }
 .header{
     background-color:lightblue;
@@ -29,7 +29,7 @@ title{
     background-color:white;
     margin: 0 auto;
 }
-.defender>.yoda, .defender>.r2d2, .defender>.trooper, .defender>.vader, .defender>.fluffy{
+.defender>.yoda, .defender>.r2d2, .defender>.trooper, .defender>.vader, .defender>.fluffy, .defender>.palpatine{
     border: 3px solid red;
     padding:10px;
     margin:5px;
@@ -41,7 +41,7 @@ title{
 .defender>.vader>#vaderimg, .defender>.trooper>#trooperimg{
     background-color:lightcoral;
 }
-.enemies>.yoda, .enemies>.r2d2, .enemies>.trooper, .enemies>.vader, .enemies>.fluffy{
+.enemies>.yoda, .enemies>.r2d2, .enemies>.trooper, .enemies>.vader, .enemies>.fluffy, .enemies>.palpatine{
     border: 3px solid black;
     padding:10px;
     margin:5px;

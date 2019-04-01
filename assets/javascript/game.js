@@ -5,7 +5,9 @@ var vader = $(".vader");
 var trooper = $(".trooper");
 var r2D2 = $(".r2d2");
 var fluffy = $(".fluffy");
+var palpatine = $(".palpatine");
 var secretCharacter = false;
+var finalBoss = false;
 var gameStart = false;
 var gameEnd = false;
 var defender = false;
@@ -17,6 +19,7 @@ var vaderHp = $("#vaderhp");
 var trooperHp = $("#trooperhp");
 var r2D2Hp = $("#r2d2hp");
 var fluffyHp = $("#fluffyhp");
+var palpatineHp = $("#palpatinehp");
 var yodaStats = {
     name: "Yoda",
     hp:100,
@@ -128,7 +131,7 @@ var r2D2Stats = {
 }
 var fluffyStats = {
     name: "fluffy",
-    hp:10,
+    hp:7,
     hpUpdate: function(){
         fluffyHp.text(fluffyStats.hp);
     },
@@ -146,6 +149,31 @@ var fluffyStats = {
         $(".yourchar").append(fluffy);
         attacker = true;
         attackerStats = fluffyStats;
+        $(".enemies").append(yoda);
+        $(".enemies").append(vader);
+        $(".enemies").append(trooper);
+        $(".enemies").append(r2D2);}
+}
+var palpatineStats = {
+    name: "Palpatine",
+    hp:220,
+    hpUpdate: function(){
+        palpatineHp.text(palpatineStats.hp);
+    },
+    baseAttack:200,
+    attackValue:200,
+    vanquish: function(){
+        $(".vanquished").append(palpatine);
+        defender = false; },
+    defend: function(){
+        $(".defender").append(palpatine);
+        defender = true;
+        defenderStats = palpatineStats;},
+    attack: function(){
+        gameStart = true;
+        $(".yourchar").append(palpatine);
+        attacker = true;
+        attackerStats = palpatineStats;
         $(".enemies").append(yoda);
         $(".enemies").append(vader);
         $(".enemies").append(trooper);
@@ -190,6 +218,11 @@ fluffy.on("click",function(){
         fluffyStats.defend();
     }
 })
+palpatine.on("click", function(){
+    if(attacker == true && defender == false && gameStart == true && gameEnd == false){
+    palpatineStats.defend();
+    }
+})
 
 // changing the mouse pointer when it hovers over the attack button//
 $("#attack").hover(function(){
@@ -202,6 +235,13 @@ $("#attack").on("click", function(){
     console.log(gameStart, gameEnd, attacker, defender);
     if (attackerStats == yodaStats && defenderStats == vaderStats){
         secretCharacter = true;
+        
+    } else if  ((attackerStats == fluffyStats || attackerStats == r2D2Stats) && defenderStats == vaderStats){
+        finalBoss =true;
+        if(finalBoss == true && palpatineStats.hp > 0){
+            $("#fight-message").text("You have awakened scary lighting man. prepare for final boss");
+            $(".enemies").append(palpatine);
+        }
     }
     if (gameStart == true && gameEnd == false && attacker == true && defender == true){
         console.log(defenderStats);
@@ -210,20 +250,23 @@ $("#attack").on("click", function(){
         defenderStats.hpUpdate();
         
         if (defenderStats.hp <= 0){
+            if (secretCharacter == true && finalBoss == true && palpatineStats.hp <= 0){
+                alert("the power of puppy love (and, lets be honest, probably mutant super powers) has saved the galaxy! You may now rest on your laurels/ paws.");
+            }
             defenderStats.vanquish();
             defender = false;
-            $("#fight-message").text("You dealt" + attackerStats.attackValue + " damage and defeated " + defenderStats.name + "!");
+            $("#fight-message").text("You dealt " + (attackerStats.attackValue - attackerStats.baseAttack)+ " damage and defeated " + defenderStats.name + "!");
             if ($(".enemies > div").length <=0){
+                
                 gameEnd = true;
-                $("#fight-message").text("You dealt " + attackerStats.attackValue + " damage and defeated " + defenderStats.name + "! You win! Play again?");
-                $("#restart").css("display","block");
-            }
+                $("#fight-message").text("You dealt " + (attackerStats.attackValue - attackerStats.baseAttack) + " damage and defeated " + defenderStats.name + "! You win! Have you found the two extra characters yet?");
+                $("#restart").css("display","block");}
         }else {
             attackerStats.hp -= defenderStats.baseAttack;
             attackerStats.hpUpdate();
             $("#fight-message").text("You dealt " + (attackerStats.attackValue - attackerStats.baseAttack) + " damage to " + defenderStats.name + " and They dealt " + defenderStats.baseAttack + " damage to you." );
             if(attackerStats.hp <= 0){
-                $("#fight-message").text(defenderStats.name + " defeated you. try again?")
+                $("#fight-message").text(defenderStats.name + " defeated you. Try again?")
                 gameEnd = true;
                 $("#restart").css("display","block");
 
@@ -265,11 +308,20 @@ $("#restart").on("click",function(){
         $("#restart").css("display","none");
         $("#fight-message").text("press attack to fight!")
         if(secretCharacter == true){
-            fluffyStats.hp = 10;
+            fluffyStats.hp = 7;
             fluffyStats.attackValue = fluffyStats.baseAttack;
             fluffyStats.hpUpdate();
             $(".choosechar").append(fluffy);
         }
+
+        
+        if(finalBoss == true){
+            palpatineStats.hp = 220;
+            palpatineStats.hpUpdate();
+            $(".enemies").append(palpatine);
+        }
+        
+
     }
 })
 
