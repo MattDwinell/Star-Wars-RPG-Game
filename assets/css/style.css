@@ -2,17 +2,25 @@
     display:block;
     box-sizing:border-box;
 }
+.section>p{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
 body{
     background-image: url("../images/skyfight.png");
     background-size:cover;
 }
+html{
+    padding-left:10%;
+}
 .header{
+    background-color:lightblue;
+    padding: 15px;
     float:right;
 }
 title{
     display:none;
 }
-.choosechar>.yoda, .choosechar>.r2d2, .choosechar>.vader, .choosechar>.trooper, .yourchar>.yoda, .yourchar>.vader, .yourchar>.trooper, .yourchar>.r2d2 .choosechar>.fluffy, .yourchar>.fluffy{
+.choosechar>.yoda, .choosechar>.r2d2, .choosechar>.vader, .choosechar>.trooper, .yourchar>.yoda, .yourchar>.vader, .yourchar>.trooper, .yourchar>.r2d2, .choosechar>.fluffy, .yourchar>.fluffy{
     border: 3px solid green;
     padding:10px;
     margin:5px;

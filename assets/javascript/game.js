@@ -212,10 +212,10 @@ $("#attack").on("click", function(){
         if (defenderStats.hp <= 0){
             defenderStats.vanquish();
             defender = false;
-            $("#fight-message").text("You defeated " + defenderStats.name + "!");
+            $("#fight-message").text("You dealt" + attackerStats.attackValue + " damage and defeated " + defenderStats.name + "!");
             if ($(".enemies > div").length <=0){
                 gameEnd = true;
-                $("#fight-message").text("You win! Play again?");
+                $("#fight-message").text("You dealt " + attackerStats.attackValue + " damage and defeated " + defenderStats.name + "! You win! Play again?");
                 $("#restart").css("display","block");
             }
         }else {
