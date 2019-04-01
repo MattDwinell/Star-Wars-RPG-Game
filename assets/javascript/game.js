@@ -4,6 +4,8 @@ var yoda = $(".yoda");
 var vader = $(".vader");
 var trooper = $(".trooper");
 var r2D2 = $(".r2d2");
+var fluffy = $(".fluffy");
+var secretCharacter = false;
 var gameStart = false;
 var gameEnd = false;
 var defender = false;
@@ -14,6 +16,7 @@ var yodaHp = $("#yodahp");
 var vaderHp = $("#vaderhp");
 var trooperHp = $("#trooperhp");
 var r2D2Hp = $("#r2d2hp");
+var fluffyHp = $("#fluffyhp");
 var yodaStats = {
     name: "Yoda",
     hp:100,
@@ -36,7 +39,10 @@ var yodaStats = {
         attackerStats = yodaStats;
         $(".enemies").append(vader);
         $(".enemies").append(trooper);
-        $(".enemies").append(r2D2);}
+        $(".enemies").append(r2D2);
+        if (secretCharacter == true){
+            $(".enemies").append(fluffy);
+        }}
 }
 var vaderStats = {
     name: "Darth-Vader",
@@ -60,7 +66,10 @@ var vaderStats = {
         attackerStats = vaderStats;
         $(".enemies").append(yoda);
         $(".enemies").append(trooper);
-        $(".enemies").append(r2D2);}
+        $(".enemies").append(r2D2);
+        if (secretCharacter == true){
+            $(".enemies").append(fluffy);
+        }}
 }
 var trooperStats = {
     name: "Storm Trooper",
@@ -84,7 +93,10 @@ var trooperStats = {
         attackerStats = trooperStats;
         $(".enemies").append(vader);
         $(".enemies").append(yoda);
-        $(".enemies").append(r2D2);}
+        $(".enemies").append(r2D2);
+        if (secretCharacter == true){
+            $(".enemies").append(fluffy);
+        }}
 }
 var r2D2Stats = {
     name: "R2D2",
@@ -108,7 +120,36 @@ var r2D2Stats = {
         attackerStats = r2D2Stats;
         $(".enemies").append(vader);
         $(".enemies").append(trooper);
-        $(".enemies").append(yoda);}
+        $(".enemies").append(yoda);
+            if (secretCharacter == true){
+                $(".enemies").append(fluffy);
+            }
+    }
+}
+var fluffyStats = {
+    name: "fluffy",
+    hp:10,
+    hpUpdate: function(){
+        fluffyHp.text(fluffyStats.hp);
+    },
+    baseAttack:34,
+    attackValue:34,
+    vanquish: function(){
+        $(".vanquished").append(fluffy);
+        defender = false; },
+    defend: function(){
+        $(".defender").append(fluffy);
+        defender = true;
+        defenderStats = fluffyStats;},
+    attack: function(){
+        gameStart = true;
+        $(".yourchar").append(fluffy);
+        attacker = true;
+        attackerStats = fluffyStats;
+        $(".enemies").append(yoda);
+        $(".enemies").append(vader);
+        $(".enemies").append(trooper);
+        $(".enemies").append(r2D2);}
 }
 
 // code for moving the characters' html containers when clicked on.
@@ -142,6 +183,14 @@ r2D2.on("click",function(){
         r2D2Stats.defend();
     }
 })
+fluffy.on("click",function(){
+    if ((attacker == false) && (defender == false) && (gameStart == false) && (gameEnd == false)){
+        fluffyStats.attack();
+    } else if (attacker == true && defender == false && gameStart == true && gameEnd == false && fluffyStats != attackerStats) {
+        fluffyStats.defend();
+    }
+})
+
 // changing the mouse pointer when it hovers over the attack button//
 $("#attack").hover(function(){
     $(this).css("cursor", "crosshair");
@@ -151,6 +200,9 @@ $("#attack").hover(function(){
 // attack button code. can describe everything in terms of attacker stats & defender stats. //
 $("#attack").on("click", function(){
     console.log(gameStart, gameEnd, attacker, defender);
+    if (attackerStats == yodaStats && defenderStats == vaderStats){
+        secretCharacter = true;
+    }
     if (gameStart == true && gameEnd == false && attacker == true && defender == true){
         console.log(defenderStats);
         defenderStats.hp -= attackerStats.attackValue;
@@ -212,7 +264,12 @@ $("#restart").on("click",function(){
         r2D2Stats.hpUpdate();
         $("#restart").css("display","none");
         $("#fight-message").text("press attack to fight!")
-
+        if(secretCharacter == true){
+            fluffyStats.hp = 10;
+            fluffyStats.attackValue = fluffyStats.baseAttack;
+            fluffyStats.hpUpdate();
+            $(".choosechar").append(fluffy);
+        }
     }
 })
 

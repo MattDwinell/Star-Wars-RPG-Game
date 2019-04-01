@@ -12,7 +12,7 @@ body{
 title{
     display:none;
 }
-.choosechar>.yoda, .choosechar>.r2d2, .choosechar>.vader, .choosechar>.trooper, .yourchar>.yoda, .yourchar>.vader, .yourchar>.trooper, .yourchar>.r2d2{
+.choosechar>.yoda, .choosechar>.r2d2, .choosechar>.vader, .choosechar>.trooper, .yourchar>.yoda, .yourchar>.vader, .yourchar>.trooper, .yourchar>.r2d2 .choosechar>.fluffy, .yourchar>.fluffy{
     border: 3px solid green;
     padding:10px;
     margin:5px;
@@ -21,7 +21,7 @@ title{
     background-color:white;
     margin: 0 auto;
 }
-.defender>.yoda, .defender>.r2d2, .defender>.trooper, .defender>.vader{
+.defender>.yoda, .defender>.r2d2, .defender>.trooper, .defender>.vader, .defender>.fluffy{
     border: 3px solid red;
     padding:10px;
     margin:5px;
@@ -33,7 +33,7 @@ title{
 .defender>.vader>#vaderimg, .defender>.trooper>#trooperimg{
     background-color:lightcoral;
 }
-.enemies>.yoda, .enemies>.r2d2, .enemies>.trooper, .enemies>.vader{
+.enemies>.yoda, .enemies>.r2d2, .enemies>.trooper, .enemies>.vader, .enemies>.fluffy{
     border: 3px solid black;
     padding:10px;
     margin:5px;
@@ -53,6 +53,14 @@ title{
 }
 .vanquished{
 display:none;
+}
+.vanquished>.fluffy{
+    border: 3px solid green;
+    padding:10px;
+    margin:5px;
+    text-align: center;
+    background-color:white;
+    margin: 0 auto;
 }
 #attack{
     margin: 0 auto;
